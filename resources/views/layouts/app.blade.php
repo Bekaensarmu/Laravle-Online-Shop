@@ -8,6 +8,8 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    @notifyCss
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
         crossorigin="anonymous" />
 
@@ -23,34 +25,37 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-secondary py-4">
 
-        <div class="container">
+       <div class="navbar-nav ms-auto">
 
-            <a class="navbar-brand" href="#">Online Store</a>
+           <a class="nav-link active" href="{{ route('home.index') }}">Home</a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
-                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+           <a class="nav-link active" href="{{ route('product.index') }}">Products</a>
 
-                <span class="navbar-toggler-icon"></span>
+           <a class="nav-link active" href="{{ route('home.index') }}">About</a>
+            
+           <div class="vr bg-white mx-2 d-none d-lg-block"></div>
 
-            </button>
+           @guest
 
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+           <a class="nav-link active"href="{{ route('login') }}">Login</a>
+           <a class="nav-link active"href="{{ route('register') }}">Register</a>
 
-                <div class="navbar-nav ms-auto">
+           @else
+              @if(Auth::user()->role == 'admin')
+                 <a class="nav-link active" href="{{ route('admin.home.index') }}">Dashboard</a>
+              @endif
 
-                    <a class="nav-link active" href="{{ route('home.index') }}">Home</a>
+           <form id="logout" action="{{ route('logout') }}" method="POST">
+               <a role="button" class="nav-link active"
+                  onclick="document.getElementById('logout').submit();">Logout</a>
+                @csrf
 
-                    <a class="nav-link active" href="{{ route('product.index') }}">Products</a>
+           </form>
 
-                    <a class="nav-link active" href="/cart">Cart</a>
+           @endguest
 
-                    <a class="nav-link active" href="{{ route('home.about') }}">About</a>
 
-                </div>
-
-            </div>
-
-        </div>
+       </div>
 
     </nav>
 
@@ -99,6 +104,9 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous">
     </script>
+
+    @notifyJs
+    @include('notify::components.notify')
 
 </body>
 

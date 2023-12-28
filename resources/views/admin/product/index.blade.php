@@ -3,7 +3,9 @@
 @section('title', $viewData['title'])
 
 @section('content')
-
+   <div class="container">
+    
+   </div>
     <div class="card">
         <div class="card-header"> Manage Products
         </div>

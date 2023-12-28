@@ -45,6 +45,8 @@ class AdminProductController extends Controller
             $newProduct->save();
         }
 
+        notify()->success("New Product Created successfully", "Product Created");
+
         return redirect()->route('admin.product.index');
     }
 
@@ -73,6 +75,7 @@ class AdminProductController extends Controller
             $product->image = $imageName;
         }
         $product->save();
+        notify()->success("Product Update successfully", "Product Update");
         return redirect()->route('admin.product.index');
     }
 
@@ -80,6 +83,7 @@ class AdminProductController extends Controller
     public function delete($id)
     {
         Product::destroy($id);
+        notify()->success("Product Deleted successfully","Product Deleted");
         return back();
     }
 }
